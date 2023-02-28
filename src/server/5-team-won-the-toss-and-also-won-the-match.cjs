@@ -39,4 +39,4 @@ function teamWonTheTossAndTheMatch() {
 
 }
 teamWonTheTossAndTheMatch();
-module.exports = teamWonTheTossAndTheMatch();
+module.exports = teamWonTheTossAndTheMatch;
