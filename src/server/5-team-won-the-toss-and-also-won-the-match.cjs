@@ -28,7 +28,7 @@ function teamWonTheTossAndTheMatch() {
     }
     const jsonObj = (JSON.stringify(tossAndMatchWinner));
 
-    fs.writeFile("../public/output/team-won-the-toss-and-also-won-the-match.json", jsonObj, 'utf8', function (err) {
+    fs.writeFile("../public/output/5-team-won-the-toss-and-also-won-the-match.json", jsonObj, 'utf8', function (err) {
         if (err) {
             console.log("An error occured while writing JSON Object to File.");
             return console.log(err);
