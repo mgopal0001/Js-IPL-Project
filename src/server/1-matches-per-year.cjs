@@ -25,7 +25,7 @@ function matchesPerYear() {
 
     const jsonObj = (JSON.stringify(matchesPerYearData));
 
-    fs.writeFile("../public/output/matches-per-year.json", jsonObj, 'utf8', function (err) {
+    fs.writeFile("../public/output/1-matches-per-year.json", jsonObj, 'utf8', function (err) {
         if (err) {
             console.log("An error occured while writing JSON Object to File.");
             return console.log(err);
