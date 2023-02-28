@@ -28,7 +28,7 @@ function matchesWonPerTeamPerYear() {
 
     const jsonObj = (JSON.stringify(matchesWonPerTeamPerYear));
 
-    fs.writeFile("../public/output/matches-won-per-team-per-year.json", jsonObj, 'utf8', function (err) {
+    fs.writeFile("../public/output/2-matches-won-per-team-per-year.json", jsonObj, 'utf8', function (err) {
         if (err) {
             console.log("An error occured while writing JSON Object to File.");
             return console.log(err);
