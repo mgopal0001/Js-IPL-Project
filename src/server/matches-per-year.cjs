@@ -13,7 +13,7 @@ function matchesPerYear() {
     const matchesPerYearData = {};
     for (let index = 0; index < iplMatchData.length; index++) {
 
-        let iplSeason = iplMatchData[i].season;
+        let iplSeason = iplMatchData[index].season;
 
         if (matchesPerYearData[iplSeason] = matchesPerYearData[iplSeason]) {
             matchesPerYearData[iplSeason] = matchesPerYearData[iplSeason] + 1;
