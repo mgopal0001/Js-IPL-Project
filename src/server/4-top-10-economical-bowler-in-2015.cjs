@@ -27,17 +27,17 @@ const deliveryDescription = {
 };
 const deliveryData = csvToObj(deliveriesData, ',', deliveryDescription);
 const iplMatchData = csvToObj(data, ',', matchDescription);
-// console.table(deliveryData);
 
 
-const matchId = {};
-for (const key in iplMatchData) {
-    if (iplMatchData[key].season.includes(2015)) {
-        matchId[iplMatchData[key].id] = 2015;
+function topBowlerEconomy() {
+
+    const matchId = {};
+    for (const key in iplMatchData) {
+        if (iplMatchData[key].season.includes(2015)) {
+            matchId[iplMatchData[key].id] = 2015;
+        }
     }
-}
-// console.log(matchId);
-function topBowlerEconomyIn() {
+    // console.log(matchId);
 
     const bowlerEconomy = {};
     for (const key in deliveryData) {
@@ -93,6 +93,19 @@ function topBowlerEconomyIn() {
         topBowlerEconomy[selectedKey] = smallestValue;
         delete bowlerEconomy[selectedKey];
     }
-    console.log(topBowlerEconomy);
+
+    const jsonObj = (JSON.stringify(topBowlerEconomy));
+
+    fs.writeFile("../public/output/4-top-10-economical-bowler-in-2015.json", jsonObj, 'utf8', function (err) {
+        if (err) {
+            console.log("An error occured while writing JSON Object to File.");
+            return console.log(err);
+        }
+
+        console.log("JSON file has been saved.");
+    });
+
+
 }
-topBowlerEconomyIn();
+topBowlerEconomy();
+module.exports = topBowlerEconomy;
