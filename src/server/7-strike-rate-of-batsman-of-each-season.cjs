@@ -19,52 +19,65 @@ const deliveryDescription = {
 const iplMatchData = csvToObj(data, ',', matchDescription);
 const deliveryData = csvToObj(deliveriesData, ',', deliveryDescription);
 
+function strikeRateOfBatsmanOfEachSeason() {
 
-const seasonMatchIdMap = {};
+    const seasonMatchIdMap = {};
 
-for (let index = 0; index < iplMatchData.length; index++) {
-    let iplSeason = iplMatchData[index].season;
+    for (let index = 0; index < iplMatchData.length; index++) {
+        let iplSeason = iplMatchData[index].season;
 
-    if (!seasonMatchIdMap[iplSeason]) {
-        seasonMatchIdMap[iplSeason] = {};
-    } else {
-        seasonMatchIdMap[iplSeason][iplMatchData[index].id] = 1;
-    }
-}
-
-const batsmanMap = {};
-
-for (let index = 0; index < deliveryData.length; index++) {
-    for (const season in seasonMatchIdMap) {
-        if (seasonMatchIdMap[season][deliveryData[index].match_id]) {
-            for (let columnIndex = 0; columnIndex < deliveryData[index].batsman.length; columnIndex++) {
-                const key = deliveryData[index].batsman[columnIndex];
-
-                if (!batsmanMap[key]) {
-                    batsmanMap[key] = {};
-                }
-
-                if (batsmanMap[key][season]) {
-                    batsmanMap[key][season] = {
-                        runs: batsmanMap[key][season].runs + deliveryData[index].batsman_runs[columnIndex],
-                        balls: batsmanMap[key][season].balls + 1
-                    };
-                } else {
-                    batsmanMap[key][season] = {
-                        runs: deliveryData[index].batsman_runs[columnIndex],
-                        balls: 1
-                    };
-                }
-            }
-
+        if (!seasonMatchIdMap[iplSeason]) {
+            seasonMatchIdMap[iplSeason] = {};
+        } else {
+            seasonMatchIdMap[iplSeason][iplMatchData[index].id] = 1;
         }
     }
-}
 
-for (const key in batsmanMap) {
-    for (const index in batsmanMap[key]) {
-        let strikeRate = batsmanMap[key][index].runs / batsmanMap[key][index].balls * 100;
-        batsmanMap[key][index] = parseFloat(strikeRate.toFixed(2));
+    const batsmanMap = {};
+
+    for (let index = 0; index < deliveryData.length; index++) {
+        for (const season in seasonMatchIdMap) {
+            if (seasonMatchIdMap[season][deliveryData[index].match_id]) {
+                for (let columnIndex = 0; columnIndex < deliveryData[index].batsman.length; columnIndex++) {
+                    const key = deliveryData[index].batsman[columnIndex];
+
+                    if (!batsmanMap[key]) {
+                        batsmanMap[key] = {};
+                    }
+
+                    if (batsmanMap[key][season]) {
+                        batsmanMap[key][season] = {
+                            runs: batsmanMap[key][season].runs + deliveryData[index].batsman_runs[columnIndex],
+                            balls: batsmanMap[key][season].balls + 1
+                        };
+                    } else {
+                        batsmanMap[key][season] = {
+                            runs: deliveryData[index].batsman_runs[columnIndex],
+                            balls: 1
+                        };
+                    }
+                }
+
+            }
+        }
     }
+
+    for (const key in batsmanMap) {
+        for (const index in batsmanMap[key]) {
+            let strikeRate = batsmanMap[key][index].runs / batsmanMap[key][index].balls * 100;
+            batsmanMap[key][index] = parseFloat(strikeRate.toFixed(2));
+        }
+    }
+    const jsonObj = (JSON.stringify(batsmanMap));
+
+    fs.writeFile("../public/output/7-strike-rate-of-batsman-of-each-season.json", jsonObj, 'utf8', function (err) {
+        if (err) {
+            console.log("An error occured while writing JSON Object to File.");
+            return console.log(err);
+        }
+
+        console.log("JSON file has been saved.");
+    });
 }
-console.log(batsmanMap);
+strikeRateOfBatsmanOfEachSeason();
+module.exports = strikeRateOfBatsmanOfEachSeason;
