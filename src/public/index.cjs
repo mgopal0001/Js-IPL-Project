@@ -109,3 +109,54 @@ fetch("/output/4-top-10-economical-bowler-in-2015.json")
             }]
         });
     })
+
+fetch("/output/5-team-won-the-toss-and-also-won-the-match.json")
+    .then((data) => data.json())
+    .then((data) => {
+        const iplTeam = Object.keys(data);
+        const numberOfTimes = Object.values(data);
+        console.log(iplTeam);
+        const chart = Highcharts.chart('container5', {
+            title: {
+                text: 'Teams won the toss and also won the match',
+                align: 'left'
+            },
+
+            xAxis: {
+                categories: iplTeam
+            },
+            series: [{
+                type: 'column',
+                name: 'Number of times won the toss and match',
+                colorByPoint: true,
+                data: numberOfTimes,
+                showInLegend: false
+            }]
+        });
+    })
+
+fetch("/output/6-player-who-has-won-the-highest-number-of-Player-of-the-Match.json")
+    .then((data) => data.json())
+    .then((data) => {
+        const iplSeason = (Object.keys(data));
+        const iplArray = iplSeason.map(Number);
+        console.log(iplArray)
+        const playerName = Object.values(data);
+        const chart = Highcharts.chart('container6', {
+            title: {
+                text: 'Players Won the highest number of Player of the Match',
+                align: 'left'
+            },
+
+            xAxis: {
+                categories: playerName
+            },
+            series: [{
+                type: 'column',
+                name: 'Number of times won the toss and match',
+                colorByPoint: true,
+                data: iplArray,
+                showInLegend: false
+            }]
+        });
+    })
