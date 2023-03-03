@@ -47,7 +47,7 @@ function playerOfTheMatch() {
             });
         };
         let highestPlayer = playerOfMatchOfSeason(playerMap);
-        playersResult[key] = highestPlayer;
+        playersResult[key] = highestPlayer[0];
 
     }
 
