@@ -13,7 +13,7 @@ fetch("/output/1-matches-per-year.json")
 
             yAxis: {
                 title: {
-                    text: 'Matches won'
+                    text: 'MATCHES WON'
                 }
             },
 
@@ -76,6 +76,11 @@ fetch("/output/3-extra-runs-conceded-by-team-in-2016.json")
             xAxis: {
                 categories: team
             },
+            yAxis: {
+                title: {
+                    text: 'EXTRA RUNS'
+                }
+            },
             series: [{
                 type: 'column',
                 name: 'Extra Runs',
@@ -99,6 +104,11 @@ fetch("/output/4-top-10-economical-bowler-in-2015.json")
 
             xAxis: {
                 categories: bowler
+            },
+            yAxis: {
+                title: {
+                    text: 'ECONOMY'
+                }
             },
             series: [{
                 type: 'column',
@@ -124,6 +134,11 @@ fetch("/output/5-team-won-the-toss-and-also-won-the-match.json")
 
             xAxis: {
                 categories: iplTeam
+            },
+            yAxis: {
+                title: {
+                    text: 'MATCHES WON'
+                }
             },
             series: [{
                 type: 'column',
@@ -151,6 +166,11 @@ fetch("/output/6-player-who-has-won-the-highest-number-of-Player-of-the-Match.js
             xAxis: {
                 categories: playerName
             },
+            yAxis: {
+                title: {
+                    text: 'MATCHES WON'
+                }
+            },
             series: [{
                 type: 'column',
                 name: 'Number of times won the toss and match',
@@ -176,6 +196,11 @@ fetch("/output/9-bowler-with-best-economy-in-super-over.json")
             xAxis: {
                 categories: bowlerName
             },
+            yAxis: {
+                title: {
+                    text: 'Economy Rate'
+                }
+            },
             series: [{
                 type: 'column',
                 name: 'Economy rate',
@@ -199,7 +224,13 @@ fetch("/output/8-highest-number-of-player-dissmissed-by-another-player.json")
             },
 
             xAxis: {
+                
                 categories: [bowler]
+            },
+            yAxis: {
+                title: {
+                    text: 'Number of times Dismissed'
+                }
             },
             series: [{
                 type: 'column',
@@ -217,14 +248,14 @@ fetch("/output/2-matches-won-per-team-per-year.json")
     .then((data) => data.json())
     .then((data) => {
         const matchArray = [];
-        for(const key in data){
+        for (const key in data) {
             const newTeam = {}
             let teamData = Object.values(data[key]);
             newTeam.name = key;
             newTeam.data = teamData;
             matchArray.push(newTeam);
-        }    
-        
+        }
+
         console.log(matchArray[0].data);
         console.log(matchArray);
         Highcharts.chart('container2', {
@@ -242,7 +273,79 @@ fetch("/output/2-matches-won-per-team-per-year.json")
                 align: 'left'
             },
             xAxis: {
-                categories: [2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018],
+                categories: [2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018],
+                title: {
+                    text: null
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'IPL SEASON',
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            tooltip: {
+                valueSuffix: ' Matches'
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -40,
+                y: 80,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor:
+                    Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+                shadow: true
+            },
+            credits: {
+                enabled: false
+            },
+            series: matchArray
+        });
+
+    })
+
+
+fetch("/output/7-strike-rate-of-batsman-of-each-season.json")
+    .then((data) => data.json())
+    .then((data) => {
+        const playerArray = [];
+        for (const key in data) {
+            const newTeam = {}
+            let teamData = Object.values(data[key]);
+            newTeam.name = key;
+            newTeam.data = teamData;
+            playerArray.push(newTeam);
+        }
+        Highcharts.chart('container7', {
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Strike Rate of Batsman of Each Season',
+                align: 'left'
+            },
+            subtitle: {
+                text: 'Source: <a ' +
+                    'href="https://en.wikipedia.org/wiki/List_of_continents_and_continental_subregions_by_population"' +
+                    'target="_blank">Wikipedia.org</a>',
+                align: 'left'
+            },
+            xAxis: {
+                categories: [2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018],
                 title: {
                     text: null
                 }
@@ -282,7 +385,7 @@ fetch("/output/2-matches-won-per-team-per-year.json")
             credits: {
                 enabled: false
             },
-            series: matchArray
+            series: playerArray
         });
 
     })
