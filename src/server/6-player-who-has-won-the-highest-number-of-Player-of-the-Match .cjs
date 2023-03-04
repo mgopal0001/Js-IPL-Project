@@ -8,6 +8,7 @@ const matchDescription = {
     season: { type: 'number' },
     player_of_match: { type: 'string' }
 };
+
 const iplMatchData = csvToObj(data, ',', matchDescription);
 
 function playerOfTheMatch() {
@@ -37,7 +38,7 @@ function playerOfTheMatch() {
                 playerMap[playerArray[player]]++;
             }
         }
-
+        
         const playerOfMatchOfSeason = playerObject => {
             //returning highest number of player of match in season 
 

@@ -54,7 +54,7 @@ function highestNumberOfPlayerDismissed() {
             }
         }
     }
-    const finalResultObj = { Player: whichPlayerPlaying, Bowler: dismissedByWhichPlayer, number: maximum };
+    const finalResultObj = { Player: whichPlayerPlaying, Bowler: dismissedByWhichPlayer, times: maximum };
 
     const jsonObj = (JSON.stringify(finalResultObj));
 

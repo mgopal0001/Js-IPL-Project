@@ -10,6 +10,7 @@ const matchDescription = {
 const iplMatchData = csvToObj(data, ',', matchDescription);
 
 function matchesWonPerTeamPerYear() {
+
     const matchesWonPerTeamPerYear = {};
 
     for (let index = 0; index < iplMatchData.length; index++) {
@@ -17,13 +18,13 @@ function matchesWonPerTeamPerYear() {
         let iplYear = iplMatchData[index].season;
         let matchWinner = iplMatchData[index].winner;
 
-        if (!matchesWonPerTeamPerYear[iplYear]) {
-            matchesWonPerTeamPerYear[iplYear] = {};
+        if (!matchesWonPerTeamPerYear[matchWinner]) {
+            matchesWonPerTeamPerYear[matchWinner] = {};
         }
-        if (!matchesWonPerTeamPerYear[iplYear][matchWinner]) {
-            matchesWonPerTeamPerYear[iplYear][matchWinner] = 0;
+        if (!matchesWonPerTeamPerYear[matchWinner][iplYear]) {
+            matchesWonPerTeamPerYear[matchWinner][iplYear] = 0;
         }
-        matchesWonPerTeamPerYear[iplYear][matchWinner] += 1;
+        matchesWonPerTeamPerYear[matchWinner][iplYear] += 1;
     }
 
     const jsonObj = (JSON.stringify(matchesWonPerTeamPerYear));
