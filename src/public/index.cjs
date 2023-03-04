@@ -4,7 +4,7 @@ fetch("/output/1-matches-per-year.json")
         const dataToPlot = Object.values(data);
         console.log("Data Loaded", dataToPlot);
 
-        Highcharts.chart('container', {
+        Highcharts.chart('container1', {
 
             title: {
                 text: 'IPL Matches Per Year',
@@ -140,6 +140,7 @@ fetch("/output/6-player-who-has-won-the-highest-number-of-Player-of-the-Match.js
     .then((data) => {
         const iplSeason = (Object.keys(data));
         const iplArray = iplSeason.map(Number);
+        console.log("iplArray", iplArray);
         const playerName = Object.values(data);
         const chart = Highcharts.chart('container6', {
             title: {
@@ -185,3 +186,103 @@ fetch("/output/9-bowler-with-best-economy-in-super-over.json")
         });
     })
 
+fetch("/output/8-highest-number-of-player-dissmissed-by-another-player.json")
+    .then((data) => data.json())
+    .then((data) => {
+        const batsman = (data.Player);
+        const bowler = (data.Bowler);
+        const times = (data.times);
+        const chart = Highcharts.chart('container8', {
+            title: {
+                text: 'Highest number of player dismissed',
+                align: 'left'
+            },
+
+            xAxis: {
+                categories: [bowler]
+            },
+            series: [{
+                type: 'column',
+                name: batsman,
+                colorByPoint: true,
+                data: [times],
+                showInLegend: false
+            }]
+        });
+    })
+
+
+
+fetch("/output/2-matches-won-per-team-per-year.json")
+    .then((data) => data.json())
+    .then((data) => {
+        const matchArray = [];
+        for(const key in data){
+            const newTeam = {}
+            let teamData = Object.values(data[key]);
+            newTeam.name = key;
+            newTeam.data = teamData;
+            matchArray.push(newTeam);
+        }    
+        
+        console.log(matchArray[0].data);
+        console.log(matchArray);
+        Highcharts.chart('container2', {
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Matches Won Per Team Per Year',
+                align: 'left'
+            },
+            subtitle: {
+                text: 'Source: <a ' +
+                    'href="https://en.wikipedia.org/wiki/List_of_continents_and_continental_subregions_by_population"' +
+                    'target="_blank">Wikipedia.org</a>',
+                align: 'left'
+            },
+            xAxis: {
+                categories: [2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018],
+                title: {
+                    text: null
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: '',
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            tooltip: {
+                valueSuffix: ' Matches'
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -40,
+                y: 80,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor:
+                    Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+                shadow: true
+            },
+            credits: {
+                enabled: false
+            },
+            series: matchArray
+        });
+
+    })
