@@ -2,7 +2,7 @@ fetch("/output/1-matches-per-year.json")
     .then((data) => data.json())
     .then((data) => {
         const dataToPlot = Object.values(data);
-        console.log("Data Loaded", dataToPlot);
+
 
         Highcharts.chart('container1', {
 
@@ -125,7 +125,6 @@ fetch("/output/5-team-won-the-toss-and-also-won-the-match.json")
     .then((data) => {
         const iplTeam = Object.keys(data);
         const numberOfTimes = Object.values(data);
-        console.log(iplTeam);
         const chart = Highcharts.chart('container5', {
             title: {
                 text: 'Teams won the toss and also won the match',
@@ -155,11 +154,10 @@ fetch("/output/6-player-who-has-won-the-highest-number-of-Player-of-the-Match.js
     .then((data) => {
         const iplSeason = (Object.keys(data));
         const iplArray = iplSeason.map(Number);
-        console.log("iplArray", iplArray);
         const playerName = Object.values(data);
         const chart = Highcharts.chart('container6', {
             title: {
-                text: 'Players Won the highest number of Player of the Match',
+                text: 'Highest number of Player of the Match ',
                 align: 'left'
             },
 
@@ -167,13 +165,14 @@ fetch("/output/6-player-who-has-won-the-highest-number-of-Player-of-the-Match.js
                 categories: playerName
             },
             yAxis: {
+                
                 title: {
                     text: 'MATCHES WON'
                 }
             },
             series: [{
                 type: 'column',
-                name: 'Number of times won the toss and match',
+                name: 'Highest number of Player of the match in ',
                 colorByPoint: true,
                 data: iplArray,
                 showInLegend: false
@@ -256,8 +255,6 @@ fetch("/output/2-matches-won-per-team-per-year.json")
             matchArray.push(newTeam);
         }
 
-        console.log(matchArray[0].data);
-        console.log(matchArray);
         Highcharts.chart('container2', {
             chart: {
                 type: 'bar'
@@ -267,9 +264,6 @@ fetch("/output/2-matches-won-per-team-per-year.json")
                 align: 'left'
             },
             subtitle: {
-                text: 'Source: <a ' +
-                    'href="https://en.wikipedia.org/wiki/List_of_continents_and_continental_subregions_by_population"' +
-                    'target="_blank">Wikipedia.org</a>',
                 align: 'left'
             },
             xAxis: {
@@ -339,9 +333,6 @@ fetch("/output/7-strike-rate-of-batsman-of-each-season.json")
                 align: 'left'
             },
             subtitle: {
-                text: 'Source: <a ' +
-                    'href="https://en.wikipedia.org/wiki/List_of_continents_and_continental_subregions_by_population"' +
-                    'target="_blank">Wikipedia.org</a>',
                 align: 'left'
             },
             xAxis: {
@@ -361,7 +352,7 @@ fetch("/output/7-strike-rate-of-batsman-of-each-season.json")
                 }
             },
             tooltip: {
-                valueSuffix: ' Matches'
+                valueSuffix: ' Strike Rate'
             },
             plotOptions: {
                 bar: {
