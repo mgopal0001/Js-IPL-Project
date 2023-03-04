@@ -140,7 +140,6 @@ fetch("/output/6-player-who-has-won-the-highest-number-of-Player-of-the-Match.js
     .then((data) => {
         const iplSeason = (Object.keys(data));
         const iplArray = iplSeason.map(Number);
-        console.log(iplArray)
         const playerName = Object.values(data);
         const chart = Highcharts.chart('container6', {
             title: {
@@ -156,6 +155,31 @@ fetch("/output/6-player-who-has-won-the-highest-number-of-Player-of-the-Match.js
                 name: 'Number of times won the toss and match',
                 colorByPoint: true,
                 data: iplArray,
+                showInLegend: false
+            }]
+        });
+    })
+
+
+fetch("/output/9-bowler-with-best-economy-in-super-over.json")
+    .then((data) => data.json())
+    .then((data) => {
+        const bowlerName = Object.keys(data);
+        const economy = Object.values(data)
+        const chart = Highcharts.chart('container9', {
+            title: {
+                text: 'Bowler with best economy rate in super over',
+                align: 'left'
+            },
+
+            xAxis: {
+                categories: bowlerName
+            },
+            series: [{
+                type: 'column',
+                name: 'Economy rate',
+                colorByPoint: true,
+                data: economy,
                 showInLegend: false
             }]
         });
